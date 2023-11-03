@@ -1,3 +1,4 @@
+
 package taojava.lists;
 
 import java.util.ConcurrentModificationException;
@@ -59,7 +60,7 @@ public class SimpleLinkedList<T>
   /**
    * Create an empty list.
    */
-  public SimpleLinkedList()
+  public SimpleLinkedList() 
   {
     this.front = new Node(null, null);
     this.mods = 0;
@@ -146,8 +147,11 @@ public class SimpleLinkedList<T>
         public boolean hasPrevious()
         {
           failFast();
-          // STUB
-          return false;
+          Node tmp = SimpleLinkedList.this.front;
+          while(tmp.next != cursor){
+            tmp = tmp.next;
+          }
+          return (tmp != SimpleLinkedList.this.front);
         } // hasPrevious()
 
         public T next()
@@ -172,6 +176,9 @@ public class SimpleLinkedList<T>
         public int previousIndex()
         {
           failFast();
+          if (!this.hasPrevious())
+            throw new NoSuchElementException();
+          
           return this.pos - 1;
         } // prevIndex
 
@@ -181,8 +188,13 @@ public class SimpleLinkedList<T>
           failFast();
           if (!this.hasPrevious())
             throw new NoSuchElementException();
-          // STUB
-          return null;
+          Node tmp = SimpleLinkedList.this.front;
+          while(tmp.next != this.cursor){
+            tmp = tmp.next;
+          }
+          --this.pos;
+          this.cursor = tmp;
+          return this.cursor.data;
         } // previous()
 
         public void remove()
@@ -206,8 +218,7 @@ public class SimpleLinkedList<T>
             IllegalStateException
         {
           failFast();
-          // STUB
-          throw new UnsupportedOperationException();
+          this.cursor.data = val;
         } // set(T)
       };
   } // listIterator()

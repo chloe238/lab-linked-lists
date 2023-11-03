@@ -12,5 +12,12 @@ public class SLLExpt
   {
     PrintWriter pen = new PrintWriter(System.out, true);
     SimpleListExpt.expt(pen, new SimpleLinkedList<String>());
+
+    SimpleLinkedList<String> vm = new SimpleLinkedList<String>();
+    SimpleListExpt.add(pen, vm, 
+            new String[] { "Hey", "Where", "Did", "We", "Go?" });
+    SimpleListExpt.setForwardExpt(pen, vm);
+
+    SimpleListExpt.prevExpt(pen, new SimpleLinkedList<String>());
   } // main(String[]
 } // SLLExpt
